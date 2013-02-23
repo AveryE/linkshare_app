@@ -2,26 +2,21 @@ require "spec_helper"
 
 describe "Bookmarks" do
 
-    describe "Index page" do
-        before { visit root_path }
-
-        it { should have_selector('h1', text: 'Listing bookmarks') }
-    
-    end
-    
     describe "New page" do
-        before { visit new_path }
-    
-        it { should have_selector("h1", text: "New Bookmark") }
 
+        it "should have the content 'New bookmark'" do
+            visit '/new'
+            page.should have_content('New bookmark')
+        end
     end
     
-    describe "Home page" do
+    describe "Index page" do
 
         it "should have the content 'Listing bookmarks'" do
             visit '/bookmarks'
     page.should have_content('Listing bookmarks')
-  end
-end
+        end
+    end
     
 end
+
