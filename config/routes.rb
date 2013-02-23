@@ -1,4 +1,10 @@
 LinkshareApp::Application.routes.draw do
+  resources :bookmarks
+  root to: "bookmarks#index"
+
+match "/new",    to: "bookmarks#new"
+match "/bookmarks",   to: "bookmarks#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
