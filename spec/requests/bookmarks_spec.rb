@@ -2,19 +2,23 @@ require "spec_helper"
 
 describe "Bookmarks" do
 
-    describe "New page" do
+    describe "Index page" do
+        it "should have the content 'Welcome to Linkshare'" do
+            visit '/bookmarks'
+            page.should have_content('Welcome to Linkshare')
+        end
+        
+        it "should have the content 'All bookmarks shared'" do
+            visit '/bookmarks'
+            page.should have_content('All bookmarks shared')
+        end
+    end
+    
+        describe "New page" do
 
         it "should have the content 'New bookmark'" do
             visit '/new'
             page.should have_content('New bookmark')
-        end
-    end
-    
-    describe "Index page" do
-
-        it "should have the content 'Listing bookmarks'" do
-            visit '/bookmarks'
-            page.should have_content('Listing bookmarks')
         end
     end
     
