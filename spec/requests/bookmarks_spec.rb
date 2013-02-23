@@ -16,9 +16,9 @@ describe "Bookmarks" do
     
         describe "New page" do
 
-        it "should have the content 'New bookmark'" do
+            it "should have the content 'Add a new bookmark'" do
             visit '/new'
-            page.should have_content('New bookmark')
+            page.should have_content('Add a new bookmark')
         end
     end
     
