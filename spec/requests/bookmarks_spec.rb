@@ -16,4 +16,12 @@ describe "Bookmarks" do
 
     end
     
+    describe "Home page" do
+
+        it "should have the content 'Listing bookmarks'" do
+            visit '/bookmarks'
+    page.should have_content('Listing bookmarks')
+  end
+end
+    
 end
