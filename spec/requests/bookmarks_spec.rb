@@ -14,7 +14,7 @@ describe "Bookmarks" do
 
         it "should have the content 'Listing bookmarks'" do
             visit '/bookmarks'
-    page.should have_content('Listing bookmarks')
+            page.should have_content('Listing bookmarks')
         end
     end
     
