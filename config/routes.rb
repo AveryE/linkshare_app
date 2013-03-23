@@ -1,9 +1,22 @@
 LinkshareApp::Application.routes.draw do
+  get "users/new"
+  
+  resources :users
+
+
   resources :bookmarks
-  root to: "bookmarks#index"
+  resources :sessions, only: [:new, :create, :destroy]
+  root to: "sessions#new"
 
 match "/new",    to: "bookmarks#new"
 match "/bookmarks",   to: "bookmarks#index"
+match '/signin',  to: 'sessions#new'
+match '/signout', to: 'sessions#destroy', via: :delete
+
+
+
+  match '/signup',  to: 'users#new'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
