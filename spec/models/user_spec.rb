@@ -27,11 +27,9 @@ describe User do
   it { should respond_to(:realname) }
   it { should respond_to(:email) }
 
-  
-
   it { should respond_to(:password_digest) }
-    it { should respond_to(:password) }
-      it { should respond_to(:password_confirmation) }
+  it { should respond_to(:password) }
+  it { should respond_to(:password_confirmation) }
       
   it { should respond_to(:authenticate) }
 
@@ -109,8 +107,9 @@ describe User do
 
   describe "with a password that's too short" do
     before { @user.password = @user.password_confirmation = "a" * 6 }
-    it { should_not be_valid }
-        #or should be invalid?  what's the difference?
+    #it { should_not be_valid }
+    #or should be invalid?  what's the difference?
+    it { should be_invalid }
   end
 
   describe "return value of authenticate method" do
