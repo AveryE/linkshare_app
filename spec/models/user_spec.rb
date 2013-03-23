@@ -2,12 +2,13 @@
 #
 # Table name: users
 #
-#  id         :integer          not null, primary key
-#  username   :string(255)
-#  realname   :string(255)
-#  email      :string(255)
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id              :integer          not null, primary key
+#  username        :string(255)
+#  realname        :string(255)
+#  email           :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  password_digest :string(255)
 #
 
 require 'spec_helper'
@@ -15,13 +16,16 @@ require 'spec_helper'
 describe User do
 
   before do
-      @user = User.new(username: "Example User", email: "user@example.com")
+      @user = User.new(username: "Example User", email: "user@example.com", 
+                     password: "foobar", password_confirmation: "foobar")
   end
 
   subject { @user }
 
+
   it { should respond_to(:username) }
   it { should respond_to(:email) }
+  
 
   it { should respond_to(:password_digest) }
     it { should respond_to(:password) }
@@ -29,7 +33,7 @@ describe User do
       
   it { should respond_to(:authenticate) }
 
-  #it { should be_valid }
+  it { should be_valid }
 
   describe "when username is not present" do
       before { @user.username = " " }
