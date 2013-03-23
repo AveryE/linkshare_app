@@ -16,15 +16,17 @@ require 'spec_helper'
 describe User do
 
   before do
-      @user = User.new(username: "bookworm", email: "books@somuchtoread.com", 
-                     password: "foobar", password_confirmation: "foobar")
+      @user = User.new(username: "bookworm", realname: "Erica Avery", email: "books@somuchtoread.com", 
+                     password: "foobars", password_confirmation: "foobars")
   end
 
   subject { @user }
 
 
   it { should respond_to(:username) }
+  it { should respond_to(:realname) }
   it { should respond_to(:email) }
+
   
 
   it { should respond_to(:password_digest) }
@@ -45,6 +47,15 @@ describe User do
     it { should_not be_valid }
   end
   
+  describe "when realname is too long" do
+      before { @user.realname = "a" * 76 }
+    it { should_not be_valid }
+  end
+  
+  describe "when realname is too short" do
+      before { @user.realname = "a" * 1 }
+    it { should_not be_valid }
+  end
   
   
   
@@ -80,9 +91,6 @@ describe User do
     it { should_not be_valid }
   end
 
-
-
-  
   describe "when password is not present" do
     before { @user.password = @user.password_confirmation = " " }
     it { should_not be_valid }
@@ -99,12 +107,10 @@ describe User do
   end
 
 
-
-  
-
   describe "with a password that's too short" do
-    before { @user.password = @user.password_confirmation = "a" * 5 }
-    it { should be_invalid }
+    before { @user.password = @user.password_confirmation = "a" * 6 }
+    it { should_not be_valid }
+        #or should be invalid?  what's the difference?
   end
 
   describe "return value of authenticate method" do

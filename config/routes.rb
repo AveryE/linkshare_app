@@ -16,9 +16,6 @@ match '/signout', to: 'sessions#destroy', via: :delete
 
 
 
-  match '/signup',  to: 'users#new'
-
-
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

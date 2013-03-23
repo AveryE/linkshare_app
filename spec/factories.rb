@@ -1,9 +1,10 @@
 FactoryGirl.define do
   factory :user do
-    username     "bookworm"
+    username  "bookworm"
+    realname "Erica Avery"
     email    "books@somuchtoread.com"
-    password "foobar"
-    password_confirmation "foobar"
+    password "foobars"
+    password_confirmation "foobars"
   end
 end
 
