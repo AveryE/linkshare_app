@@ -13,7 +13,7 @@ match "/bookmarks",   to: "bookmarks#index"
 match '/signup',  to: 'users#new'
 match '/signin',  to: 'sessions#new'
 match '/signout', to: 'sessions#destroy', via: :delete
-
+match '/edit', to: 'users#edit'
 
 
   # The priority is based upon order of creation:

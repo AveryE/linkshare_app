@@ -15,6 +15,12 @@ describe "User pages" do
         expect { click_button submit }.not_to change(User, :count)
       end
     end
+    
+    describe "with invalid info" do
+      before { click_button "Save changes" }
+
+      #it { should have_content('error') }
+    end
 
     describe "with valid information" do
       before do
@@ -42,13 +48,16 @@ describe "User pages" do
   end
   
   
-  describe "profile page" do
+  describe "edit" do
     let(:user) { FactoryGirl.create(:user) }
     before { visit user_path(user) }
 
-    it { should have_selector('h1',    text: user.username) }
-    #it { should have_selector('title', text: user.username) }
-  end
+    describe "page" do
+      it { should have_selector('h2',    text: "Update your profile") }
+      #it { should have_selector('title', text: "Edit user") }
+      #it { should have_link('change', href: 'http://gravatar.com/emails') }
+    end
+end
 
   describe "signup page" do
     before { visit signup_path }

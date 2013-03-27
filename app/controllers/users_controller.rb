@@ -21,13 +21,27 @@ class UsersController < ApplicationController
   end
   
   
-    def create
+  def create
     @user = User.new(params[:user])
     if @user.save
         flash[:success] = "Welcome to Linkshare!"
       redirect_to @user
     else
       render 'new'
+    end
+  end
+  
+  def edit
+    @user = User.find(params[:id])
+  end
+  
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update_attributes(params[:user])
+      # Handle a successful update.
+    else
+      render 'edit'
     end
   end
 end
