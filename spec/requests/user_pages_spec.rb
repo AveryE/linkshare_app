@@ -57,6 +57,26 @@ describe "User pages" do
       #it { should have_selector('title', text: "Edit user") }
       #it { should have_link('change', href: 'http://gravatar.com/emails') }
     end
+    
+    describe "with valid information" do
+        let(:new_username)  { "New Name" }
+      let(:new_email) { "new@example.com" }
+      before do
+          fill_in "Username",             with: new_username
+        fill_in "Email",            with: new_email
+        fill_in "Password",         with: user.password
+        fill_in "Confirm Password", with: user.password
+        click_button "Save changes"
+      end
+
+      it { should have_selector('title', text: new_username) }
+      it { should have_selector('div.alert.alert-success') }
+      it { should have_link('Sign out', href: signout_path) }
+      specify { user.reload.username.should  == new_username }
+      specify { user.reload.email.should == new_email }
+    end
+    
+    
 end
 
   describe "signup page" do
