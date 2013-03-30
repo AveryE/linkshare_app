@@ -55,10 +55,7 @@ describe User do
       before { @user.realname = "a" * 1 }
     it { should_not be_valid }
   end
-  
-  
-  
-  
+
   describe "when email format is invalid" do
     it "should be invalid" do
       addresses = %w[user@foo,com user_at_foo.org example.user@foo.
@@ -108,11 +105,19 @@ describe User do
 
   describe "with a password that's too short" do
     before { @user.password = @user.password_confirmation = "a" * 6 }
-    #it { should_not be_valid }
+    it { should_not be_valid }
     #or should be invalid?  what's the difference?
-    it { should be_invalid }
+    #it { should be_invalid }
   end
-
+  
+  describe "with a password that's too long" do
+    before { @user.password = @user.password_confirmation = "a" * 41 }
+    it { should_not be_valid }
+    #or should be invalid?  what's the difference?
+    #it { should be_invalid }
+  end
+  
+  
   describe "return value of authenticate method" do
     before { @user.save }
     let(:found_user) { User.find_by_email(@user.email) }
