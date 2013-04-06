@@ -4,6 +4,14 @@ describe "User pages" do
 
   subject { page }
 
+  describe "signup page" do
+    before { visit signup_path }
+
+    it { should have_selector('h1',    text: 'Sign up') }
+    #it { should have_selector('title', text: full_title('Sign up')) }
+  end
+  
+  
   describe "signup" do
 
     before { visit signup_path }
@@ -14,15 +22,18 @@ describe "User pages" do
       it "should not create a user" do
         expect { click_button submit }.not_to change(User, :count)
       end
-    end
-    
-    describe "with invalid info" do
-      before { click_button "Save changes" }
+      
+      describe "after submission" do
+        before { click_button submit }
 
-      #it { should have_content('error') }
+        #it { should have_selector('title', text: 'Sign up') }
+        it { should have_content('error') }
+      end
+
     end
 
     describe "with valid information" do
+
       before do
         fill_in "Username",     with: "bookworm"
         fill_in "Realname",     with: "Erica Avery"
@@ -33,33 +44,50 @@ describe "User pages" do
 
       it "should create a user" do
         expect { click_button submit }.to change(User, :count).by(1)
-      
-        end    
-              
+      end
+
+
       describe "after saving the user" do
-        
-        
-        
+        before { click_button submit }
+        let(:user) { User.find_by_email('user@example.com') }
+
+        #it { should have_selector('title', text: user.name) }
+        #it { should have_selector('div.alert.alert-success', text: 'Welcome') }
         it { should have_link('Sign out') }
       end
-      
-      
-
-  end
-  
-  
-  describe "edit" do
-    let(:user) { FactoryGirl.create(:user) }
-    before { visit user_path(user) }
-
-    describe "page" do
-      it { should have_selector('h2',    text: "Update your profile") }
-      #it { should have_selector('title', text: "Edit user") }
-      #it { should have_link('change', href: 'http://gravatar.com/emails') }
     end
+  end
+
+  
+    describe "profile page" do
+        let(:user) { FactoryGirl.create(:user) }
+        before { visit user_path(user) }
     
+        it { should have_selector('h1',    text: user.username) }
+        #it { should have_selector('title', text: user.username) }
+    end
+  
+    describe "edit" do
+        let(:user) { FactoryGirl.create(:user) }
+    before do
+        sign_in user
+        visit edit_user_path(user)
+    end
+
+        describe "page" do
+            #it { should have_selector('h1',    text: "Update your profile") }
+            #it { should have_selector('title', text: "Edit user") }
+            #it { should have_link('change', href: 'http://gravatar.com/emails') }
+        end
+        describe "with invalid information" do
+            before { click_button "Save changes" }
+
+            #it { should have_content('error') }
+        end
+    
+        
     describe "with valid information" do
-        let(:new_username)  { "New Name" }
+        let(:new_username)  { "New Username" }
       let(:new_email) { "new@example.com" }
       before do
         fill_in "Username",             with: new_username
@@ -75,15 +103,10 @@ describe "User pages" do
       #specify { user.reload.username.should  == new_username }
       #specify { user.reload.email.should == new_email }
     end
-    
-    
+
+end
 end
 
-  describe "signup page" do
-    before { visit signup_path }
 
-    it { should have_selector('h1',    text: 'Sign up') }
-    #it { should have_selector('title', text: 'Sign up') }
-  end
-end
-end
+
+
