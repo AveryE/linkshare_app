@@ -3,6 +3,24 @@ require 'spec_helper'
 describe "User pages" do
 
   subject { page }
+  
+    describe "index" do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, username: "Ann", email: "ann@example.com")
+      FactoryGirl.create(:user, username: "Jane", email: "jane@example.com")
+      visit users_path
+    end
+    
+    #it { should have_selector('title', text: 'All users') }
+    #it { should have_selector('h1',    text: 'All users') }
+
+    #it "should list each user" do
+     # User.all.each do |user|
+     #     page.should have_selector('li', text: user.username)
+     # end
+    #end
+  end
 
   describe "signup page" do
     before { visit signup_path }
@@ -33,7 +51,6 @@ describe "User pages" do
     end
 
     describe "with valid information" do
-
       before do
         fill_in "Username",     with: "bookworm"
         fill_in "Realname",     with: "Erica Avery"
@@ -51,7 +68,7 @@ describe "User pages" do
         before { click_button submit }
         let(:user) { User.find_by_email('user@example.com') }
 
-        #it { should have_selector('title', text: user.name) }
+        #it { should have_selector('title', text: user.username) }
         #it { should have_selector('div.alert.alert-success', text: 'Welcome') }
         it { should have_link('Sign out') }
       end
