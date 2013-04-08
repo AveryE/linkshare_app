@@ -1,12 +1,15 @@
 <header>
-
+<% if signed_in? %>
                 <%= link_to "Bookmarks", bookmarks_path %>
+                <%= link_to "Profile", current_user %>
+                <%= link_to "Sign out", signout_path, method: "delete" %>
+          <% else %>
                 <%= link_to "Sign up", signup_path %></li>
                 <%= link_to "Help", '#' %>
                 <%= link_to "Search (Box)", '#' %>
-                <%= link_to "Sign in", signin_path %></li>
-                <%= link_to "Profile", current_user %>
-                <%= link_to "Sign out", signout_path, method: "delete" %>
+          <% end %>
                 
                 </header>
+
+                
 
